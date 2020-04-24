@@ -1,11 +1,11 @@
 const https = require('https');
-const apiKey = "************************8";
+const apiKey = "*************************";
 tickers = [];
 
 process.on('message', async (m) => {
     
     for (const [i, tickerName] of m.entries()) {
-        const tickerDetails = await mergeResults(tickerName.replace(/\s/g, ''));
+        const tickerDetails = await mergeResults(tickerName.replace(/ /g, "."));
         if (tickerDetails) {
             tickers.push(tickerDetails);
         }
@@ -18,7 +18,7 @@ process.on('message', async (m) => {
 
 
 async function mergeResults(tickerName) {
-    const tickerDetails = await retrieveTickerDetails(tickerName);
+    let tickerDetails = await retrieveTickerDetails(tickerName);
     const stockFinancials = await retrieveStockFinancials(tickerName);
 
     return new Promise((resolve, reject) => {
@@ -32,7 +32,9 @@ async function mergeResults(tickerName) {
         }
 
         reject(new Error("Error"))
-    });
+    }).catch(
+        //console.log(`Error retrieving data for ${tickerName}`)
+        );
 }
 
 function retrieveStockFinancials(tickerName) {
