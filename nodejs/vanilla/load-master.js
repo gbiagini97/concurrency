@@ -2,7 +2,7 @@ const fs = require('fs');
 const spawner = require('child_process');
 
 const source = "./tickers-list";
-const dest = "./data-2.json";
+const dest = "./data.json";
 
 const instances = 128;
 const children = [];
