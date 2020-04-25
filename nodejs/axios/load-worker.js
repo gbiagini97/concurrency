@@ -41,6 +41,6 @@ async function createTicker(tickerName) {
             };
         }));
     } catch (error) {
-        console.error(`${tickerName}: ${error.message}`);
+        //console.error(`${tickerName}: ${error.message}`);
     }
 }

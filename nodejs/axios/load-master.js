@@ -9,6 +9,7 @@ const fs = require('fs'),
 loadTickerDetails();
 
 function loadTickerDetails() {
+    console.log(`Started at ${new Date()}`);
     console.time('Process exited in');
     let counter = 0;
     const tickersNameArray = fs.readFileSync(source).toString('utf-8').split("\n"),
