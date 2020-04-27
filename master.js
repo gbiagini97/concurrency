@@ -1,6 +1,6 @@
 const spawner = require('child_process');
 const _ = require('lodash');
-
+const axios = require("axios");
 
 function parallelizer(args, executor, instances) {
     if (args && args.length && executor && _.isFunction(executor)) {
@@ -28,4 +28,11 @@ function parallelizer(args, executor, instances) {
 
 module.exports = {
     parallelizer: parallelizer,
+    libraries: [{
+        variableName: 'axios',
+        libraryFunction: axios
+    }, {
+        variableName: '_',
+        libraryFunction: _
+    }]
 };
