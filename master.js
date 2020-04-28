@@ -1,6 +1,6 @@
 const spawner = require('child_process');
 const _ = require('lodash');
-const axios = require("axios");
+const libraries = [];
 
 function parallelizer(args, executor, instances) {
     if (args && args.length && executor && _.isFunction(executor)) {
@@ -10,7 +10,8 @@ function parallelizer(args, executor, instances) {
         const options = {
             arrayChunk: [],
             asyncFn: executor.toString(),
-            args: _.tail(args)
+            args: _.tail(args),
+            libraries: libraries
         };
         for (arrayChunk of _.chunk(source, chunk)) {
             options.arrayChunk = arrayChunk
@@ -26,13 +27,11 @@ function parallelizer(args, executor, instances) {
     }
 }
 
+function setLibraries(lib) {
+    libraries.push(...lib);
+}
+
 module.exports = {
     parallelizer: parallelizer,
-    libraries: [{
-        variableName: 'axios',
-        libraryFunction: axios
-    }, {
-        variableName: '_',
-        libraryFunction: _
-    }]
+    setLibraries: setLibraries,
 };
