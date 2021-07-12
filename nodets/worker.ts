@@ -45,10 +45,11 @@ async function retrieveTickerDetail(tickerName: string) {
 }
 
 function wrapGetHttpCall(url: string) {
-    return new Promise<any>((resolve) => {
+    return new Promise<any>((resolve, reject) => {
         get(url, res => {
             let data = '';
             res.on('data', chunk => { data += chunk });
+            res.on('error', (error) => reject(error));
             res.on('end', () => {
                 resolve(JSON.parse(data));
             });
