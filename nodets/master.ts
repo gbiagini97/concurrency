@@ -4,11 +4,11 @@ import { cpus } from 'os';
 import { join } from 'path';
 import { promisify } from 'util';
 
-
 main();
 
 async function main() {
-    console.info(`${new Date().toLocaleString()} - Process MASTER started with PID ${process.pid}`);
+
+    console.info(`${new Date().toLocaleString()} - MASTER started with PID ${process.pid}`);
 
     const result = [];
 
@@ -28,7 +28,7 @@ async function main() {
 
             started++;
 
-            console.info(`${new Date().toLocaleString()} - Process WORKER started with PID ${child.pid}`);
+            console.info(`${new Date().toLocaleString()} - WORKER started with PID ${child.pid}`);
 
             child.on('message', (m: string[]) => {
                 result.push(...m);
@@ -36,10 +36,11 @@ async function main() {
 
             child.on('close', async () => {
                 finished++;
-                console.info(`${new Date().toLocaleString()} - Process WORKER with PID ${child.pid} exited`);
+                console.info(`${new Date().toLocaleString()} - WORKER with PID ${child.pid} exited`);
                 if (finished === started) {
                     await promisify(writeFile)(join('data.json'), JSON.stringify(result));
-                    console.info(`${new Date().toLocaleString()} - Process MASTER with PID ${process.pid} exited`);
+                    console.info(`${new Date().toLocaleString()} - MASTER with PID ${process.pid} exited`);
+                    process.exit(0);
                 }
             });
 
@@ -48,7 +49,9 @@ async function main() {
             });
 
             child.send(tickerNames.slice(i, chunkSize + i));
+
         }
+
     } catch (error) {
         console.error(`${new Date().toLocaleString()} - ${error}`);
         process.exit(1);
