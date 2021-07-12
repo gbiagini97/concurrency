@@ -4,20 +4,19 @@ import { FinancialResponse } from "./model/financial-response.model";
 import { TickerResponse } from "./model/ticker-response.model";
 import { Ticker } from "./model/ticker.model";
 
-const apiKey = '_snJhIopMdb2NuWK_ILFpOEgGAZ8U_EZ0rtS65';
+const apiKey = '*********************************';
 
 process.on('message', async (m: string[]) => {
     try {
         const tickers = [];
         for await (const tickerName of m) {
             const tickerDetails = await retrieveTickerDetail(tickerName.replace(/ /g, "."));
-            console.log(tickerDetails);
             if (tickerDetails) tickers.push(tickerDetails);
         }
         process.send(tickers);
-        process.exit();
+        process.exit(0);
     } catch (error) {
-        throw error;
+        process.exit(1);
     }
 });
 
