@@ -1,0 +1,28 @@
+{
+  "name": "@concurrency/concurrency",
+  "version": "1.0.0",
+  "description": "A project with multi child processes",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^16.3.1",
+    "ts-node": "^10.1.0",
+    "typescript": "^4.3.5"
+  },
+  "scripts": {
+    "start": "ts-node load-master.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gbiagini97/concurrency.git"
+  },
+  "keywords": [
+    "child-process"
+  ],
+  "author": "Gabriele Biagini Marco Ippolito",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gbiagini97/concurrency/issues"
+  },
+  "homepage": "https://github.com/gbiagini97/concurrency#readme"
+}
